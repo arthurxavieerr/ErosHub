@@ -1,0 +1,398 @@
+import { useEffect, useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../hooks/useAuth';
+import './Dashboard.css';
+import './Repasse.css';
+import dashboardIcon from "../assets/icons/Dashboard_icon.png";
+import repasseIcon from "../assets/icons/Repasse_icon.png";
+import cloneIcon from "../assets/icons/Clone_icon.png";
+import staticsIcon from "../assets/icons/statics_icon.png";
+import configIcon from "../assets/icons/Config_icon.png";
+import logoutIcon from "../assets/icons/Logout_icon.png";
+import avatarIcon from "../assets/Avatar.jpg";
+import notificationIcon from "../assets/icons/Notification_icon.png";
+import playIcon from "../assets/icons/Play_icon.png";
+import stopIcon from "../assets/icons/Stop_icon.png";
+
+interface User {
+  email: string;
+  username: string;
+  password: string;
+  avatar?: string;
+  userInfo: {
+    loginName: string;
+    locale: string;
+    timezone: string;
+    lastLogin: string;
+  }
+}
+
+interface BotConfig {
+  apiId: string;
+  apiHash: string;
+  botToken: string;
+  origem: string;
+  destino: string;
+}
+
+function Repasse() {
+  const navigate = useNavigate();
+  const { logout } = useAuth();
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const [showAvatarModal, setShowAvatarModal] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
+  const [logs, setLogs] = useState<string[]>([]);
+  const [command, setCommand] = useState('');
+  const [isRunning, setIsRunning] = useState(false);
+
+  // Estado para configuração do bot
+  const [botConfig, setBotConfig] = useState<BotConfig>({
+    apiId: '',
+    apiHash: '',
+    botToken: '',
+    origem: '',
+    destino: ''
+  });
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem('currentUser');
+    if (storedUser) {
+      const user = JSON.parse(storedUser);
+      setCurrentUser(user);
+      setAvatarPreview(user.avatar || avatarIcon);
+    } else {
+      navigate('/');
+    }
+
+    // Carregar configurações salvas do bot
+    const savedConfig = localStorage.getItem('botConfig');
+    if (savedConfig) {
+      setBotConfig(JSON.parse(savedConfig));
+    }
+  }, [navigate]);
+
+  // Função para atualizar configurações
+  const handleConfigChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { id, value } = e.target;
+    setBotConfig(prev => ({
+      ...prev,
+      [id]: value
+    }));
+  };
+
+  // Função para salvar configurações
+  const handleSaveConfig = async () => {
+    try {
+      // Salvar localmente
+      localStorage.setItem('botConfig', JSON.stringify(botConfig));
+
+      // Enviar para o servidor atualizar o Eros_bot.js
+      const response = await fetch('http://localhost:3001/saveConfig', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(botConfig)
+      });
+
+      if (!response.ok) {
+        throw new Error('Falha ao salvar configurações no servidor');
+      }
+
+      setLogs(prev => [...prev, `[${new Date().toLocaleTimeString()}] ✅ Configurações salvas com sucesso!`]);
+    } catch (error) {
+      setLogs(prev => [...prev, `[${new Date().toLocaleTimeString()}] ❌ Erro ao salvar configurações: ${error}`]);
+    }
+  };
+
+  // Funções para controlar o script
+  const startScript = async () => {
+    try {
+      const response = await fetch('http://localhost:3001/startBot', {
+        method: 'POST'
+      });
+
+      if (!response.ok) {
+        throw new Error('Falha ao iniciar o bot');
+      }
+
+      setIsRunning(true);
+      setLogs(prev => [...prev, `[${new Date().toLocaleTimeString()}] ▶ Script iniciado`]);
+    } catch (error) {
+      setLogs(prev => [...prev, `[${new Date().toLocaleTimeString()}] ❌ Erro ao iniciar script: ${error}`]);
+    }
+  };
+
+  const stopScript = async () => {
+    try {
+      const response = await fetch('http://localhost:3001/stopBot', {
+        method: 'POST'
+      });
+
+      if (!response.ok) {
+        throw new Error('Falha ao parar o bot');
+      }
+
+      setIsRunning(false);
+      setLogs(prev => [...prev, `[${new Date().toLocaleTimeString()}] ■ Script parado`]);
+    } catch (error) {
+      setLogs(prev => [...prev, `[${new Date().toLocaleTimeString()}] ❌ Erro ao parar script: ${error}`]);
+    }
+  };
+
+  const handleAvatarClick = () => {
+    setShowAvatarModal(true);
+  };
+
+  const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      if (file.size > 5 * 1024 * 1024) {
+        alert('A imagem deve ter menos de 5MB');
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const base64String = reader.result as string;
+        setAvatarPreview(base64String);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleSaveAvatar = () => {
+    if (currentUser && avatarPreview) {
+      const updatedUser = {
+        ...currentUser,
+        avatar: avatarPreview
+      };
+
+      localStorage.setItem('currentUser', JSON.stringify(updatedUser));
+
+      const users = JSON.parse(localStorage.getItem('users') || '[]');
+      const updatedUsers = users.map((user: User) =>
+        user.username === currentUser.username ? updatedUser : user
+      );
+      localStorage.setItem('users', JSON.stringify(updatedUsers));
+
+      setCurrentUser(updatedUser);
+      setShowAvatarModal(false);
+    }
+  };
+
+  if (!currentUser) return null;
+
+  const handleLogout = () => {
+    logout();
+    navigate('/');
+  };
+
+
+  return (
+    <div className='Container-Dashboard'>
+      {/* ... (manter Sidebar como está) ... */}
+
+      <div className='Container-right'>
+        <div className='header'>
+          {/* ... (manter header como está) ... */}
+        </div>
+
+        <div className='Container-content'>
+          <div className='Content Repasse-content'>
+            <div className='top-kpis'>
+              <div className='kpi-card'>
+                <h3>Status do Bot</h3>
+                <p className={isRunning ? 'OnlineStatus' : 'OfflineStatus'}>
+                  {isRunning ? '🟢 Online' : '🔴 Offline'}
+                </p>
+              </div>
+              <div className='kpi-card'>
+                <h3>Msgs Processadas</h3>
+                <p>-</p>
+              </div>
+              <div className='kpi-card'>
+                <h3>Álbuns em Cache</h3>
+                <p>-</p>
+              </div>
+            </div>
+
+            <div className='Config_container'>
+              <div className='Config_title'>
+                <h2>Configurações do Bot de Repasse</h2>
+              </div>
+              <div className='Config_content'>
+                <div className='Config_item'>
+                  <div className='Config_item_label'>
+                    <label htmlFor='apiId'>Api ID:</label>
+                    <input
+                      type='text'
+                      id='apiId'
+                      value={botConfig.apiId}
+                      onChange={handleConfigChange}
+                      placeholder='Digite o ID da sua Api'
+                    />
+                  </div>
+                  <div className='Config_item_label'>
+                    <label htmlFor='origem'>Chat de Origem:</label>
+                    <input
+                      type='text'
+                      id='origem'
+                      value={botConfig.origem}
+                      onChange={handleConfigChange}
+                      placeholder='Digite o ID do Chat de Origem'
+                    />
+                  </div>
+                  <div className='Config_item_label'>
+                    <label htmlFor='apiHash'>Api Hash:</label>
+                    <input
+                      type='text'
+                      id='apiHash'
+                      value={botConfig.apiHash}
+                      onChange={handleConfigChange}
+                      placeholder='Digite sua Api Hash'
+                    />
+                  </div>
+                  <div className='Config_item_label'>
+                    <label htmlFor='destino'>Chat de Destino:</label>
+                    <input
+                      type='text'
+                      id='destino'
+                      value={botConfig.destino}
+                      onChange={handleConfigChange}
+                      placeholder='Digite o ID do seu Chat de Destino'
+                    />
+                  </div>
+                  <div className='Config_item_label'>
+                    <label htmlFor='botToken'>Bot Token:</label>
+                    <input
+                      type='text'
+                      id='botToken'
+                      value={botConfig.botToken}
+                      onChange={handleConfigChange}
+                      placeholder='Digite o Token do Seu Bot'
+                    />
+                  </div>
+                </div>
+                <div className='Config_button'>
+                  <button onClick={handleSaveConfig}>
+                    Salvar Configurações
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div className='script-controls'>
+              <button 
+                onClick={startScript}
+                disabled={isRunning}
+              >
+                <div className='Icon-navigation'>
+                  <img src={playIcon} alt='Play Icon' />
+                </div>
+                Iniciar Script
+              </button>
+              <button 
+                onClick={stopScript}
+                disabled={!isRunning}
+              >
+                <div className='Icon-navigation'>
+                  <img src={stopIcon} alt='Stop Icon' />
+                </div>
+                Parar Script
+              </button>
+            </div>
+
+            <div className='ssh-command-input' style={{ marginBottom: '20px' }}>
+              <input 
+                type='text' 
+                placeholder='Digite comando SSH...' 
+                value={command} 
+                onChange={e => setCommand(e.target.value)} 
+                onKeyDown={e => {
+                  if (e.key === 'Enter' && command.trim()) {
+                    setLogs(prev => [...prev, `[${new Date().toLocaleTimeString()}] $ ${command}`]);
+                    setCommand('');
+                  }
+                }}
+                style={{ width: '80%', padding: '8px' }}
+              />
+              <button 
+                className='send-command-button'
+                onClick={() => {
+                  if (command.trim()) {
+                    setLogs(prev => [...prev, `[${new Date().toLocaleTimeString()}] $ ${command}`]);
+                    setCommand('');
+                  }
+                }}
+                style={{ marginLeft: '10px', padding: '8px 16px' }}
+              >
+                Enviar
+              </button>
+            </div>
+
+            <div className='painel-logs'>
+              <h3>Painel de Logs</h3>
+              <ul style={{ listStyle: 'none', paddingLeft: 0 }}>
+                {logs.length === 0 && <li><i>Sem logs disponíveis</i></li>}
+                {logs.map((log, idx) => (
+                  <li key={idx}>{log}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {showAvatarModal && (
+        <div className='avatar-modal'>
+          <div className='avatar-modal-content'>
+            <h2>Alterar Avatar</h2>
+            
+            <div className='avatar-preview'>
+              <img 
+                src={avatarPreview || avatarIcon} 
+                alt='Avatar Preview'
+                style={{ width: '150px', height: '150px', borderRadius: '50%', objectFit: 'cover' }}
+              />
+            </div>
+
+            <input
+              type='file'
+              ref={fileInputRef}
+              onChange={handleFileSelect}
+              accept='image/*'
+              style={{ display: 'none' }}
+            />
+
+            <div className='avatar-buttons'>
+              <button 
+                className='select-image-button'
+                onClick={() => fileInputRef.current?.click()}
+              >
+                Selecionar Imagem
+              </button>
+              
+              <button 
+                className='save-avatar-button'
+                onClick={handleSaveAvatar}
+              >
+                Salvar
+              </button>
+              
+              <button 
+                className='cancel-button'
+                onClick={() => setShowAvatarModal(false)}
+              >
+                Cancelar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+export default Repasse;
