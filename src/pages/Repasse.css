@@ -1,0 +1,288 @@
+/* Repasse Content */
+
+.Repasse-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Top KPIs */
+.top-kpis {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  height: 100px;
+}
+
+.kpi-card {
+  flex: 1;
+  height: fit-content;
+  background: #f5f5f5;
+  border-radius: 6px;
+  padding: 15px;
+  text-align: center;
+}
+
+.kpi-card h3 {
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #333;
+}
+
+.kpi-card p {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #000;
+}
+
+/* Middle section */
+.middle-section {
+  display: flex;
+  gap: 15px;
+}
+
+.monitoramento-canais,
+.painel-logs {
+  flex: 1;
+  background: #fefefe;
+  border-radius: 6px;
+  padding: 15px;
+  min-height: 140px;
+}
+
+.painel-logs {
+  flex: 1;
+  border-radius: 6px;
+  padding: 15px;
+  min-height: 140px;
+  height: 300px;
+  overflow-y: auto; 
+  background-color: #191919;
+  color: #eee;
+  padding: 10px;
+  border-radius: 5px;
+  font-family: monospace;
+  font-size: 14px;
+}
+
+
+.monitoramento-canais h3,
+.painel-logs h3 {
+    font-size: 18px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #fff;
+  padding-bottom: 5px;
+  font-weight: 600;
+}
+
+.monitoramento-canais ul,
+.painel-logs ul {
+  list-style: none;
+  padding-left: 0;
+  font-size: 1rem;
+}
+
+.monitoramento-canais ul li,
+.painel-logs ul li {
+  margin-bottom: 8px;
+  line-height: 1.3;
+  color: #fff;
+}
+
+.status {
+  font-weight: 700;
+  margin-left: 8px;
+}
+
+.status.ativo {
+  color: green;
+}
+
+.status.inativo {
+  color: red;
+}
+
+/* Bottom section */
+.bottom-section {
+  display: flex;
+  gap: 15px;
+}
+
+.metricas,
+.configuracoes-bot,
+.alertas-notificacoes {
+  flex: 1;
+  background: #f5f5f5;
+  border-radius: 6px;
+  padding: 15px;
+  min-height: 110px;
+  color: #333;
+}
+
+.metricas h3,
+.configuracoes-bot h3,
+.alertas-notificacoes h3 {
+  margin-bottom: 10px;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 5px;
+  font-weight: 600;
+}
+
+.metricas p,
+.configuracoes-bot p,
+.alertas-notificacoes p {
+  margin: 6px 0;
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.alertas-notificacoes p:first-child {
+  color: #b58900; /* Warning color */
+}
+
+.alertas-notificacoes p:last-child {
+  color: #cc0000; /* Error color */
+}
+
+.Repasse-content {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.top-kpis {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 15px;
+}
+
+.kpi-card{
+  background-color: #fff;
+  padding: 12px 20px;
+  border-radius: 6px;
+  flex: 1;
+  text-align: center;
+}
+
+.middle-section {
+  display: flex;
+}
+.OnlineStatus {
+  color: #4caf50; /* Green for online status */
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+.script-controls button{
+    display: flex;
+    gap: 10px;
+    background-color: #1B1B1B;
+    color: #fff;
+    padding: 10px;
+    border-radius: 2px;
+    border: none;
+}
+
+.script-controls button:hover {
+    background-color: #333;
+    cursor: pointer;
+}
+
+.script-controls{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.send-command-button {
+  background-color: #fff; /* Green */
+  color: #111;
+  padding: 10px;
+  border-radius: 2px;
+  border: none;
+  cursor: pointer;
+}
+
+.monitoramento-canais {
+  width: 240px;
+  background-color: #1B1B1B;
+  padding: 12px 15px;
+  border-radius: 6px;
+  color: #eee;
+}
+
+.monitoramento-canais ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.monitoramento-canais li {
+  margin-bottom: 8px;
+}
+
+.status.ativo {
+  color: #4caf50;
+  font-weight: bold;
+  margin-left: 8px;
+}
+
+.status.inativo {
+  color: #f44336;
+  font-weight: bold;
+  margin-left: 8px;
+}
+
+
+.Config_content{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: fit-content;
+  gap: 20px;
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.Config_item{
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: 1fr;
+  align-items: center;
+  justify-items: end;
+  flex-direction: column;
+  width: 100%;
+  height: fit-content;
+  border-radius: 6px;
+  gap: 10px;
+}
+
+.Config_item input{
+  width: 300px;
+  outline: none;
+  color: #000;
+  padding: 5px;
+}
+
+.Config_container {
+  display: flex;
+  width: 100%;
+  height: fit-content;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.ssh-command-input input{
+  outline: none;
+  color: #000;
+}
+
+.Config_button button {
+  background-color: #3851E9;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+}

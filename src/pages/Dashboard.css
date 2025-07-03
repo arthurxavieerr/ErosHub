@@ -1,0 +1,419 @@
+.Container-Dashboard {
+    display: flex;
+    height: fit-content;
+    min-height: 88vh;
+    flex-direction: row;
+    max-height: 100vh;
+    width: 100%;
+    background-color: #111; /* Background color for the dashboard */
+}
+
+.Sidebar-left {
+    width: 250px; /* Width of the sidebar */
+    height: 100vh; /* Full height of the sidebar */
+    display: flex;
+    flex-direction: column;
+    background-color: #141414; /* Dark background for the sidebar */
+    padding: 20px 0px 0px 0px;
+    color: white; /* Text color in the sidebar */
+}
+.Sidebar-Logo-Container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center the logo horizontally */
+    justify-content: center; /* Center the logo vertically */
+    height: 100px; /* Fixed height for the logo container */
+    width: 100%; /* Full width of the sidebar */
+    border-bottom: 2px solid #333; /* Optional border for separation */
+}
+.Logo-Dashboard {
+    background-image: url('/src/assets/Logo.svg'); /* Path to your logo */
+    width: 150px; /* Width of the logo */
+    height: 50px; /* Height of the logo */
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-bottom: 20px; /* Space below the logo */
+}
+.Container-right {
+    display: flexbox;
+    width: 100%;
+    height: 100%;
+}
+
+.header {
+    flex: 1; /* Takes the remaining width */
+    background-color: #141414; /* Dark background for the header */
+    padding: 20px;
+    color: white; /* Text color in the header */
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    width: 100%;
+    height: 100px; /* Fixed height for the header */
+}
+
+.Container-content{
+    width: 100%;
+    height: 100%;
+    min-height: 88vh;
+}
+
+.Sidebar-navigation {
+    display: flex;
+    width: 100%; /* Full width of the sidebar */
+    height: 100%;
+    padding: 10px;
+    flex-direction: column; /* Stack navigation items vertically */
+    gap: 10px; /* Space between navigation items */
+}
+
+
+.Dashboard-navigation{
+    gap: 10px;
+    padding-left: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center; /* Center navigation items horizontally */
+    justify-content: left;
+    width: 100%; /* Full width of the sidebar */
+    height: 80px; /* Full height of the sidebar */
+    background-color: #1B1B1B;
+    border-radius: 5px;
+}
+
+.Repasse-navigation{
+    padding-left: 20px;
+    gap: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center; /* Center navigation items horizontally */
+    justify-content: left;
+    width: 100%; /* Full width of the sidebar */
+    height: 80px; /* Full height of the sidebar */
+    background-color: #1B1B1B;
+    border-radius: 5px;
+}
+
+.Clone-navigation{
+    padding-left: 20px;
+    gap: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center; /* Center navigation items horizontally */
+    justify-content: left;
+    width: 100%; /* Full width of the sidebar */
+    height: 80px; /* Full height of the sidebar */
+    background-color: #1B1B1B;
+    border-radius: 5px;
+}
+
+.Statics-navigation{
+    padding-left: 20px;
+    gap: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center; /* Center navigation items horizontally */
+    justify-content: left;
+    width: 100%; /* Full width of the sidebar */
+    height: 80px; /* Full height of the sidebar */
+    background-color: #1B1B1B;
+    border-radius: 5px;
+}
+
+.Settings-navigation{
+    padding-left: 20px;
+    gap: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center; /* Center navigation items horizontally */
+    justify-content: left;
+    width: 100%; /* Full width of the sidebar */
+    height: 80px; /* Full height of the sidebar */
+    background-color: #1B1B1B;
+    border-radius: 5px;
+}
+.Sidebar-logout{
+    width: 100%; /* Full width of the sidebar */
+    height: 80px; /* Full height of the sidebar */
+    display: flex;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px
+}
+
+.Logout-navigation{
+    gap: 10px;
+    padding-left: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center; /* Center navigation items horizontally */
+    justify-content: left;
+    width: 100%; /* Full width of the sidebar */
+    height: 80px; /* Full height of the sidebar */
+    background-color: #1B1B1B;
+    border-radius: 5px;
+}
+.Dashboard-navigation:hover{
+    background-color: #222;
+    cursor: pointer;
+}
+
+.Repasse-navigation:hover{
+    background-color: #222;
+    cursor: pointer;
+}
+.Clone-navigation:hover{
+    background-color: #222;
+    cursor: pointer;
+}
+.Statics-navigation:hover{
+    background-color: #222;
+    cursor: pointer;
+}
+.Settings-navigation:hover{
+    background-color: #222;
+    cursor: pointer;
+}
+.Logout-navigation:hover{
+    background-color: #222;
+    cursor: pointer;
+}
+.user-info{
+    gap: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    width: fit-content;
+    max-width: 250px;
+    height: 60px;
+    padding: 10px;
+    margin-right: 20px;
+}
+
+.user-avatar{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.user-avatar img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+.notifications{
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+}
+
+.notification-icon {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.notification-icon img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+.notification-icon img:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+    transition: transform 0.2s ease-in-out;
+}
+
+.user-avatar img:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+    transition: transform 0.2s ease-in-out;
+}
+
+.avatar-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.avatar-modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.avatar-preview {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid #ddd;
+}
+
+.avatar-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  width: 100%;
+}
+
+.select-image-button,
+.save-avatar-button,
+.cancel-button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.select-image-button {
+  background-color: #007bff;
+  color: white;
+}
+
+.save-avatar-button {
+  background-color: #28a745;
+  color: white;
+}
+
+.cancel-button {
+  background-color: #dc3545;
+  color: white;
+}
+
+.select-image-button:hover,
+.save-avatar-button:hover,
+.cancel-button:hover {
+  opacity: 0.9;
+}
+
+.user-avatar {
+  transition: transform 0.2s;
+}
+
+.user-avatar:hover {
+  transform: scale(1.1);
+}
+
+.Content{
+    width: 100%;
+    height: 100%;
+    min-height: 83vh;
+    display: flex;
+    flex-direction: column;
+    color: white; /* Text color for the content */
+}
+.Content h1 {
+    font-size: 24px; /* Font size for the main title */
+    margin-bottom: 10px; /* Space below the title */
+}
+
+.Content p {
+    font-size: 15px; /* Font size for the paragraph */
+    color: #ccc; /* Lighter color for the paragraph text */
+    margin-bottom: 20px; /* Space below the paragraph */
+    font-weight: 200;
+}
+
+.Info-cards-container {
+    display: flex;
+    flex-wrap: wrap; /* Allows cards to wrap to the next line */
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px; /* Space between cards */
+    width: 100%; /* Full width of the container */
+    height: fit-content;
+}
+
+.Info-card{
+    height: 180px;
+    width: 300px;
+    background-color: #fff; /* Dark background for the cards */
+    padding: 20px;
+    border-radius: 5px; /* Rounded corners for the cards */
+    color: #111; /* Text color in the cards */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Center content vertically */
+    gap: 20px;
+}
+
+.Info-card p{
+    font-size: 16px; /* Font size for the card text */
+    margin-bottom: 10px; /* Space below the text */
+    color: #333;
+}
+
+.Recent-activity {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    border-bottom: #222 solid 2px;
+}
+.Recent-activity h2 {
+    font-size: 24px; /* Font size for the main title */
+    margin-bottom: 10px; /* Space below the title */
+    border-bottom: #222 solid 2px;
+}
+
+.tabela-container {
+  padding: 20px;
+}
+
+.tabela-bots {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.tabela-bots th,
+.tabela-bots td {
+  padding: 12px 16px;
+  font-size: 16px;
+}
+
+.tabela-bots thead {
+  color: #ccc;
+}
+
+.tipo-link {
+  color: #3b82f6; /* azul */
+  text-decoration: none;
+}
+
+.tipo-link:hover {
+  text-decoration: underline;
+}
+
+.status-ativo {
+  color: #22c55e; /* verde */
+}
